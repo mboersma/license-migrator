@@ -3,9 +3,9 @@
 projects=""
 
 for i in $projects; do
-    git clone "https://github.com/$USER/$i"
+    git clone "git@github.com:$USER/$i"
     pushd "$i"
-    git remote add upstream "https://github.com/deis/$i.git"
+    git remote add upstream "git@github.com:deis/$i"
     git fetch --tags upstream master
     git merge upstream/master
     git checkout -b mit
@@ -35,5 +35,6 @@ EOF
     git add LICENSE
     git commit -m "ref(LICENSE): switch to MIT license" -m "We are changing the project's license from Apache 2.0 to the MIT license. The MIT license is compatible not only with the Kubernetes and commercial community licensing communities, but also with the Linux and other copyleft licensed projects. MIT is also the most common OSS license on GitHub. Thanks for your continuing interest in our project."
     git push origin mit
+    hub pull-request
     popd
 done
